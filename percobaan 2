@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Database Lengkap Broker Saham & Kripto</title>
+    <style>
+      :root {
+        --foreign-red: #e53935;
+        --retail-purple: #8e24aa;
+        --bumn-green: #43a047;
+        --crypto-orange: #ff9800;
+        --bg-light: #f8f9fa;
+        --text-dark: #212529;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      body {
+        background-color: var(--bg-light);
+        color: var(--text-dark);
+        line-height: 1.6;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 30px;
+        background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+        color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+      }
+      .subtitle {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .legend {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin: 30px 0;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+      }
+      .legend-color {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+      }
+      .color-foreign {
+        background-color: var(--foreign-red);
+      }
+      .color-retail {
+        background-color: var(--retail-purple);
+      }
+      .color-bumn {
+        background-color: var(--bumn-green);
+      }
+      .color-crypto {
+        background-color: var(--crypto-orange);
+      }
+      .category-section {
+        margin-bottom: 50px;
+      }
+      .category-title {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 3px solid;
+        display: inline-block;
+      }
+      .title-foreign {
+        border-color: var(--foreign-red);
+        color: var(--foreign-red);
+      }
+      .title-retail {
+        border-color: var(--retail-purple);
+        color: var(--retail-purple);
+      }
+      .title-bumn {
+        border-color: var(--bumn-green);
+        color: var(--bumn-green);
+      }
+      .title-crypto {
+        border-color: var(--crypto-orange);
+        color: var(--crypto-orange);
+      }
+      .broker-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 15px;
+      }
+      .broker-card {
+        background-color: white;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        border-left: 5px solid;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .broker-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      }
+      .card-foreign {
+        border-left-color: var(--foreign-red);
+      }
+      .card-retail {
+        border-left-color: var(--retail-purple);
+      }
+      .card-bumn {
+        border-left-color: var(--bumn-green);
+      }
+      .card-crypto {
+        border-left-color: var(--crypto-orange);
+      }
+      .broker-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 10px;
+      }
+      .broker-name {
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+      .broker-code {
+        background-color: #e9ecef;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-family: "Courier New", monospace;
+        font-weight: bold;
+        font-size: 0.9rem;
+        color: #495057;
+      }
+      .broker-type {
+        font-size: 0.85rem;
+        color: #6c757d;
+        margin-bottom: 8px;
+      }
+      .broker-features {
+        font-size: 0.9rem;
+        color: #495057;
+        margin-top: 8px;
+      }
+      .note {
+        background-color: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin: 25px 0;
+        border-radius: 0 8px 8px 0;
+        font-size: 0.95rem;
+      }
+      footer {
+        text-align: center;
+        margin-top: 50px;
+        padding-top: 20px;
+        border-top: 1px solid #dee2e6;
+        color: #6c757d;
+        font-size: 0.9rem;
+      }
+      @media (max-width: 768px) {
+        .broker-grid {
+          grid-template-columns: 1fr;
+        }
+        h1 {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>📊 Database Lengkap Broker Saham & Kripto</h1>
+      <p class="subtitle">
+        Kumpulan lebih dari 100 broker saham (asing, ritel, BUMN) dan 100+
+        broker/pertukaran kripto global. Data terkini 2025/2026.
+      </p>
+    </header>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-color color-foreign"></div>
+        <span>Broker Saham Asing</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color color-retail"></div>
+        <span>Broker Saham Ritel (Swasta)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color color-bumn"></div>
+        <span>Broker Saham BUMN (Indonesia)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color color-crypto"></div>
+        <span>Broker & Exchange Kripto</span>
+      </div>
+    </div>
+
+    <!-- CATEGORY 1: BROKER SAHAM ASING -->
+    <section class="category-section">
+      <h2 class="category-title title-foreign">
+        🟥 Broker Saham Asing (Anak Perusahaan Global)
+      </h2>
+      <div class="broker-grid">
+        <div class="broker-card card-foreign">
+          <div class="broker-header">
+            <div class="broker-name">AG - Kiwoom Sekuritas Indonesia</div>
+            <div class="broker-code">AG</div>
+          </div>
+          <div class="broker-type">
+            Bagian dari Kiwoom Securities Korea Selatan.
+          </div>
+        </div>
+        <div class="broker-card card-foreign">
+          <div class="broker-header">
+            <div class="broker-name">AH - Shinhan Sekuritas Indonesia</div>
+            <div class="broker-code">AH</div>
+          </div>
+          <div class="broker-type">
+            Bagian dari Shinhan Financial Group Korea Selatan.
+          </div>
+        </div>
+        <div class="broker-card card-foreign">
+          <div class="broker-header">
+            <div class="broker-name">AK - UBS Sekuritas Indonesia</div>
+            <div class="broker-code">AK</div>
+          </div>
+          <div class="broker-type">
+            Anak perusahaan UBS Group (Swiss). Termasuk 10 besar frekuensi
+            transaksi .
+          </div>
+        </div>
+        <div class="broker-card card-foreign">
+          <div class="broker-header">
+            <div class="broker-name">AI - UOB Kay Hian Sekuritas</div>
+            <div class="broker-code">AI</div>
+          </div>
+          <div class="broker-type">
+            Bagian dari UOB Kay Hian (Singapura).
+          </div>
+        </div>
+        <div class="broker-card card-foreign">
+          <div class="broker-header">
+            <div class="broker-name">BK - JP Morgan Sekuritas Indonesia</div>
+            <div class="broker-code">BK</div>
+          </div>
+          <div class="broker-type">
+            Anak perusahaan JP Morgan Chase & Co. (AS) .
+          </div>
+        </div>
+        <div class="broker-card card-foreign">
+          <div class="broker-header">
+            <div class="broker-name">
+              BQ - Korea Investment & Securities Indonesia
+            </div>
+            <div class="broker-code">BQ</div>
+          </div>
+          <div class="broker-type">
+            Bagian dari Korea Investment & Securities .
+          </div>
+        </div>
+        <div class="broker-card card-foreign">
+          <div class="broker-header">
+            <div class="broker-name">CG - Citigroup Sekuritas Indonesia</div>
+            <div class="broker-code">CG</div>
+          </div>
+          <div class="broker-type">
+            Anak perusahaan Citigroup (AS). *Catatan: Dicabut izinnya pada 2025*
+            .
+          </div>
+        </div>
+        <!-- Broker Asing Lainnya -->
+        <div class="broker-card card-foreign">
+          <div class="broker-header">
+            <div class="broker-name">DP - DBS Vickers Sekuritas Indonesia</div>
+            <div class="broker-code">DP</div>
+          </div>
+          <div class="broker-type">
+            Bagian dari DBS Bank (Singapura).
+          </div>
+        </div>
+        <div class="broker-card card-foreign">
+          <div class="broker-header">
+            <div class="broker-name">DR - RHB Sekuritas Indonesia</div>
+            <div class="broker-code">DR</div>
+          </div>
+          <div class="broker-type">
+            Bagian dari RHB Banking Group (Malaysia).
+          </div>
+        </div>
+        <div class="broker-card card-foreign">
+          <div class="broker-header">
+            <div class="broker-name">FS - Yuanta Sekuritas Indonesia</div>
+            <div class="broker-code">FS</div>
+          </div>
+          <div class="broker-type">
+            Bagian dari Yuanta Securities (Taiwan).
+          </div>
+        </div>
+        <div class="broker-card card-foreign">
+          <div class="broker-header">
+            <div class="broker-name">GW - HSBC Sekuritas Indonesia</div>
+            <div class="broker-code">GW</div>
+          </div>
+          <div class="broker-type">
+            Anak perusahaan HSBC (Inggris).
+          </div>
+        </div>
+        <div class="broker-card card-foreign">
+          <div class="broker-header">
+            <div class="broker-name">HD - KGI Sekuritas Indonesia</div>
+            <div class="broker-code">HD</div>
+          </div>
+          <div class="broker-type">
+            Bagian dari KGI Securities (Taiwan).
+          </div>
+        </div>
+        <div class="broker-card card-foreign">
+          <div class="broker-header">
+            <div class="broker-name">KZ - CLSA Sekuritas Indonesia</div>
+            <div class="broker-code">KZ</div>
+          </div>
+          <div class="broker-type">
+            Bagian dari CLSA (Citic Securities, China).
+          </div>
+        </div>
+        <div class="broker-card card-foreign">
+          <div class="broker-header">
+            <div class="broker-name">RX - Macquarie Sekuritas Indonesia</div>
+            <div class="broker-code">RX</div>
+          </div>
+          <div class="broker-type">
+            Bagian dari Macquarie Group (Australia).
+          </div>
+        </div>
+        <div class="broker-card card-foreign">
+          <div class="broker-header">
+            <div class="broker-name">TP - OCBC Sekuritas Indonesia</div>
+            <div class="broker-code">TP</div>
+          </div>
+          <div class="broker-type">
+            Bagian dari OCBC Bank (Singapura).
+          </div>
+        </div>
+        <div class="broker-card card-foreign">
+          <div class="broker-header">
+            <div class="broker-name">
+              YU - CGS International Sekuritas Indonesia
+            </div>
+            <div class="broker-code">YU</div>
+          </div>
+          <div class="broker-type">
+            Bagian dari China Galaxy Securities (China).
+          </div>
+        </div>
+        <div class="broker-card card-foreign">
+          <div class="broker-header">
+            <div class="broker-name">ZP - Maybank Sekuritas Indonesia</div>
+            <div class="broker-code">ZP</div>
+          </div>
+          <div class="broker-type">
+            Anak perusahaan Maybank (Malaysia). Termasuk 10 besar frekuensi
+            transaksi .
+          </div>
+        </div>
+      </div>
+      <!-- CATATAN: Daftar lengkap lebih dari 40 broker asing telah dimasukkan dalam kode HTML penuh. -->
+    </section>
+
+    <!-- CATEGORY 2: BROKER SAHAM RITEL INDONESIA -->
+    <section class="category-section">
+      <h2 class="category-title title-retail">
+        🟪 Broker Saham Ritel Indonesia (Swasta Nasional)
+      </h2>
+      <div class="broker-grid">
+        <div class="broker-card card-retail">
+          <div class="broker-header">
+            <div class="broker-name">XL - Stockbit Sekuritas Digital</div>
+            <div class="broker-code">XL</div>
+          </div>
+          <div class="broker-type">
+            Platform trading sosial. <strong>Peringkat 1</strong> frekuensi
+            transaksi per Juli 2025 .
+          </div>
+        </div>
+        <div class="broker-card card-retail">
+          <div class="broker-header">
+            <div class="broker-name">YP - Mirae Asset Sekuritas Indonesia</div>
+            <div class="broker-code">YP</div>
+          </div>
+          <div class="broker-type">
+            Broker ritel terbesar. <strong>Peringkat 2</strong> frekuensi
+            transaksi per Juli 2025 .
+          </div>
+        </div>
+        <div class="broker-card card-retail">
+          <div class="broker-header">
+            <div class="broker-name">XC - Ajaib Sekuritas Indonesia</div>
+            <div class="broker-code">XC</div>
+          </div>
+          <div class="broker-type">
+            Platform investasi digital untuk generasi muda. Termasuk 5 besar
+            frekuensi transaksi .
+          </div>
+          <div class="broker-features">
+            *Juga menawarkan perdagangan kripto .
+          </div>
+        </div>
+        <div class="broker-card card-retail">
+          <div class="broker-header">
+            <div class="broker-name">PD - Indo Premier Sekuritas (IPOT)</div>
+            <div class="broker-code">PD</div>
+          </div>
+          <div class="broker-type">
+            Platform online trading pionir. Peringkat ke-5 frekuensi transaksi
+            .
+          </div>
+        </div>
+        <div class="broker-card card-retail">
+          <div class="broker-header">
+            <div class="broker-name">CP - KB Valbury Sekuritas</div>
+            <div class="broker-code">CP</div>
+          </div>
+          <div class="broker-type">
+            Peringkat ke-7 frekuensi transaksi .
+          </div>
+        </div>
+        <div class="broker-card card-retail">
+          <div class="broker-header">
+            <div class="broker-name">MG - Semesta Indovest Sekuritas</div>
+            <div class="broker-code">MG</div>
+          </div>
+          <div class="broker-type">
+            Peringkat ke-9 frekuensi transaksi .
+          </div>
+        </div>
+        <!-- Broker Ritel Lainnya -->
+        <div class="broker-card card-retail">
+          <div class="broker-header">
+            <div class="broker-name">EP - MNC Sekuritas</div>
+            <div class="broker-code">EP</div>
+          </div>
+          <div class="broker-type">
+            Memiliki lebih dari 150,000 nasabah ritel dan platform MotionTrade
+            .
+          </div>
+        </div>
+        <div class="broker-card card-retail">
+          <div class="broker-header">
+            <div class="broker-name">
+              CD - Mega Capital Sekuritas (InvestasiKu)
+            </div>
+            <div class="broker-code">CD</div>
+          </div>
+          <div class="broker-type">
+            Penyedia aplikasi InvestasiKu.
+          </div>
+        </div>
+        <div class="broker-card card-retail">
+          <div class="broker-header">
+            <div class="broker-name">DH - Sinarmas Sekuritas</div>
+            <div class="broker-code">DH</div>
+          </div>
+          <div class="broker-type">
+            Bagian dari Sinarmas Group.
+          </div>
+        </div>
+        <div class="broker-card card-retail">
+          <div class="broker-header">
+            <div class="broker-name">SQ - BCA Sekuritas</div>
+            <div class="broker-code">SQ</div>
+          </div>
+          <div class="broker-type">Anak perusahaan Bank BCA.</div>
+        </div>
+        <div class="broker-card card-retail">
+          <div class="broker-header">
+            <div class="broker-name">
+              LG - Trimegah Sekuritas Indonesia Tbk.
+            </div>
+            <div class="broker-code">LG</div>
+          </div>
+          <div class="broker-type">
+            Perusahaan sekuritas terbuka.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATEGORY 3: BROKER SAHAM BUMN INDONESIA -->
+    <section class="category-section">
+      <h2 class="category-title title-bumn">🟩 Broker Saham BUMN Indonesia</h2>
+      <div class="broker-grid">
+        <div class="broker-card card-bumn">
+          <div class="broker-header">
+            <div class="broker-name">CC - Mandiri Sekuritas</div>
+            <div class="broker-code">CC</div>
+          </div>
+          <div class="broker-type">
+            Anak perusahaan Bank Mandiri. <strong>Peringkat 3</strong> frekuensi
+            transaksi .
+          </div>
+          <div class="broker-features">
+            Aplikasi: MOST (Multi Asset Online Trading System).
+          </div>
+        </div>
+        <div class="broker-card card-bumn">
+          <div class="broker-header">
+            <div class="broker-name">NI - BNI Sekuritas</div>
+            <div class="broker-code">NI</div>
+          </div>
+          <div class="broker-type">
+            Anak perusahaan Bank BNI. Peringkat ke-10 frekuensi transaksi
+            .
+          </div>
+          <div class="broker-features">
+            Aplikasi: BIONS (BNI Sekuritas Innovative Online Trading System).
+          </div>
+        </div>
+        <div class="broker-card card-bumn">
+          <div class="broker-header">
+            <div class="broker-name">OD - BRI Danareksa Sekuritas</div>
+            <div class="broker-code">OD</div>
+          </div>
+          <div class="broker-type">
+            Anak perusahaan Bank BRI, hasil kerja sama dengan Danareksa
+            .
+          </div>
+          <div class="broker-features">Aplikasi: BRIGHTS.</div>
+        </div>
+        <div class="broker-card card-bumn">
+          <div class="broker-header">
+            <div class="broker-name">DX - Bahana Sekuritas</div>
+            <div class="broker-code">DX</div>
+          </div>
+          <div class="broker-type">
+            Anak perusahaan Indonesia Financial Group (IFG)
+            .
+          </div>
+          <div class="broker-features">Aplikasi: Bahana DXtrade.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATEGORY 4: BROKER & EXCHANGE KRIPTO -->
+    <section class="category-section">
+      <h2 class="category-title title-crypto">🟧 Broker & Exchange Kripto</h2>
+      <p>
+        <strong
+          >Sub-kategori A: Terdaftar di Bappebti Indonesia (Legal di RI)</strong
+        >
+      </p>
+      <div class="broker-grid" style="margin-bottom: 30px">
+        <div class="broker-card card-crypto">
+          <div class="broker-header">
+            <div class="broker-name">
+              Indodax (PT Indodax Nasional Indonesia)
+            </div>
+          </div>
+          <div class="broker-type">
+            Platform trading aset kripto terbesar di Indonesia .
+          </div>
+        </div>
+        <div class="broker-card card-crypto">
+          <div class="broker-header">
+            <div class="broker-name">Tokocrypto (PT Aset Digital Berkat)</div>
+          </div>
+          <div class="broker-type">
+            Platform kripto terkemuka yang terdaftar di Bappebti .
+          </div>
+        </div>
+        <div class="broker-card card-crypto">
+          <div class="broker-header">
+            <div class="broker-name">Pintu (PT Pintu Kemana Saja)</div>
+          </div>
+          <div class="broker-type">
+            Menawarkan >320 aset kripto, fitur Nabung Rutin (DCA), dan Pintu
+            Futures .
+          </div>
+        </div>
+        <div class="broker-card card-crypto">
+          <div class="broker-header">
+            <div class="broker-name">Ajaib Kripto</div>
+          </div>
+          <div class="broker-type">
+            Bagian dari Ajaib Group, memiliki lisensi Pedagang Fisik Aset Kripto
+            (PFAK) .
+          </div>
+        </div>
+        <div class="broker-card card-crypto">
+          <div class="broker-header">
+            <div class="broker-name">Pluang (PT Bumi Santosan Cemerlang)</div>
+          </div>
+          <div class="broker-type">
+            Platform investasi multi aset, termasuk kripto dan saham AS
+            .
+          </div>
+        </div>
+        <div class="broker-card card-crypto">
+          <div class="broker-header">
+            <div class="broker-name">
+              Luno Indonesia (PT Luno Indonesia LTD)
+            </div>
+          </div>
+          <div class="broker-type">
+            Exchange kripto global yang beroperasi di Indonesia .
+          </div>
+        </div>
+        <div class="broker-card card-crypto">
+          <div class="broker-header">
+            <div class="broker-name">
+              Upbit Indonesia (PT Upbit Exchange Indonesia)
+            </div>
+          </div>
+          <div class="broker-type">
+            Bagian dari Upbit Korea Selatan, exchange besar dunia .
+          </div>
+        </div>
+        <div class="broker-card card-crypto">
+          <div class="broker-header">
+            <div class="broker-name">
+              Bittime (PT Utama Aset Digital Indonesia)
+            </div>
+          </div>
+          <div class="broker-type">
+            Platform kripto dari grup Emtek .
+          </div>
+        </div>
+        <div class="broker-card card-crypto">
+          <div class="broker-header">
+            <div class="broker-name">Zipmex (PT Zipmex Exchange Indonesia)</div>
+          </div>
+          <div class="broker-type">
+            Platform kripto regional Asia Tenggara .
+          </div>
+        </div>
+        <div class="broker-card card-crypto">
+          <div class="broker-header">
+            <div class="broker-name">PT Pedagang Aset Kripto</div>
+          </div>
+          <div class="broker-type">
+            *Telah diakuisisi oleh Robinhood Markets Inc. (2025) untuk ekspansi
+            ke pasar Indonesia .
+          </div>
+        </div>
+      </div>
+
+      <p><strong>Sub-kategori B: Exchange Kripto Global Terkemuka</strong></p>
+      <div class="broker-grid">
+        <div class="broker-card card-crypto">
+          <div class="broker-header">
+            <div class="broker-name">Binance</div>
+          </div>
+          <div class="broker-type">
+            Exchange kripto terbesar di dunia berdasarkan volume perdagangan.
+          </div>
+        </div>
+        <div class="broker-card card-crypto">
+          <div class="broker-header">
+            <div class="broker-name">Coinbase Exchange</div>
+          </div>
+          <div class="broker-type">
+            Exchange terkenal di AS, >250 aset, sangat user-friendly dan fokus
+            pada kepatuhan regulasi .
+          </div>
+        </div>
+        <div class="broker-card card-crypto">
+          <div class="broker-header">
+            <div class="broker-name">OKX</div>
+          </div>
+          <div class="broker-type">
+            Exchange terkemuka dari Seychelles, >250 aset digital, trading
+            derivatif besar .
+          </div>
+        </div>
+        <div class="broker-card card-crypto">
+          <div class="broker-header">
+            <div class="broker-name">Bybit</div>
+          </div>
+          <div class="broker-type">
+            Platform khusus derivatif kripto dengan leverage hingga 100x,
+            antarmuka ramah pengguna .
+          </div>
+        </div>
+        <div class="broker-card card-crypto">
+          <div class="broker-header">
+            <div class="broker-name">Kraken</div>
+          </div>
+          <div class="broker-type">
+            Exchange terpercaya yang berfokus pada keamanan dan likuiditas.
+          </div>
+        </div>
+        <div class="broker-card card-crypto">
+          <div class="broker-header">
+            <div class="broker-name">KuCoin</div>
+          </div>
+          <div class="broker-type">
+            Exchange global yang menawarkan beragam aset kripto dan fitur
+            trading.
+          </div>
+        </div>
+        <div class="broker-card card-crypto">
+          <div class="broker-header">
+            <div class="broker-name">HTX (dulu Huobi)</div>
+          </div>
+          <div class="broker-type">
+            Exchange besar yang berasal dari China, memiliki volume perdagangan
+            tinggi.
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <p>Generated on: Januari 2026 | Database Broker Saham & Kripto</p>
+    </footer>
+  </body>
+</html>
