@@ -1,0 +1,33 @@
+<h1>hello word</h1>
+<h2>hello word</h2>
+<h3>hello word</h3>
+<h4>hello word</h4>
+<h5>hello word</h5>
+<h6>hello word</h6>
+<!-- 0 = no warna, 255 = warna pekat -->
+
+<ul type="disc">
+    <li>nasi goreng</li>
+    <li>mie goreng</li>
+    <li>ayam goreng</li>
+</ul>
+<ul type="square">
+    <li>nasi goreng</li>
+    <li>mie goreng</li>
+    <li>ayam goreng</li>
+</ul>
+<ul type="circle">
+    <li>nasi goreng</li>
+    <li>mie goreng</li>
+    <li>ayam goreng</li>
+</ul>
+
+<ol type="1">
+    <li></li>
+</ol>
+<ol type="A">
+    <li></li>
+</ol>
+<ol type="a">
+    <li></li>
+</ol>
