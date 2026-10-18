@@ -1,0 +1,33 @@
+<head>
+<meta charset="UTF-8">
+<meta name = "deskripsi" content = "pengenalan awal untuk pemrograman website">
+<meta name = "keywords" content = "HTML, CSS, javascript">
+<meta name = "author" content = "Faizal Dananjaya">
+</head>
+
+<!-- button syntax -->
+<button>
+  click me!
+</button>
+
+<!-- link syntax -->
+<a href="https://youtube.com" target="_blank">link to youtube</a>
+
+<a href="https://google.com" target="_blank">link to google</a>
+
+<a href="button.html" target="_blank">button</a>
+
+<a href="soal.html" target="_blank">soal</a>
+
+<a href="index.html" target="_blank">index</a>
+
+<a href="style.html" target="_blank">style</a>
+
+<!-- paragraf syntax -->
+<p>
+  hello word!
+</p>
+
+<p>
+  Today i went to the grocery store to buy some fruits and vegetables. I picked up apples, bananas, carrots, and spinach. After that, I stopped by the bakery to get a fresh loaf of bread. On my way home, I saw a beautiful park where children were playing and families were having picnics. It was a lovely day to be outside and enjoy the sunshine.
+</p>
